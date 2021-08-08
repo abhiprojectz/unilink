@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>UNILink - The ultimate link manager!</title>
+      <!-- Primary Meta Tags -->
+      <meta name="title" content="UNILink - The ultimate link manager!">
+      <meta name="description" content="UNILink is a friendly link manager. Through this tool you can make public or private links collection, and also explore awesome links collections curated by other people.">
+      <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="{% static 'img/jgj.PNG' %}">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta property="og:title" content="UNILink - The ultimate link manager!">
+      <meta property="og:description" content="UNILink is a friendly link manager. Through this tool you can make public or private links collection, and also explore awesome links collections curated by other people.">
+      <meta property="og:image" content="{% static 'img/jgj.PNG' %}">
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+   </head>
+   <body>
+      <!--  Toast notification starts  -->
+      <div id="toast">
+         <div id="img">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+               <circle cx="12" cy="12" r="9" />
+               <line x1="12" y1="8" x2="12.01" y2="8" />
+               <polyline points="11 12 12 12 12 16 13 16" />
+            </svg>
+         </div>
+         <div id="desc"></div>
+      </div>
+      <div class="pop-container" id="popup">
+         <div class="pop-inner">
+            <div class="p-item">
+               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <circle cx="12" cy="12" r="9" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                  <polyline points="11 12 12 12 12 16 13 16" />
+               </svg>
+               <span>
+                  <b>Description:</b> 
+                  <svg xmlns="http://www.w3.org/2000/svg" id="pop-x" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                     <circle cx="12" cy="12" r="9" />
+                     <path d="M10 10l4 4m0 -4l-4 4" />
+                  </svg>
+               </span>
+            </div>
+            <div class="p-item">
+               <span id="tabtn"></span>
+            </div>
+            <div id="third__" class="p-item">
+               <svg xmlns="http://www.w3.org/2000/svg"  width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+                  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+               </svg>
+               <span id="card_link">Copy Url link</span>
+            </div>
+            {% block passwordBlock %}{% endblock passwordBlock %}
+         </div>
+      </div>
+      <header>
+         <a class="logo" href="{% url 'unilink_app:home' %}">
+            <svg xmlns="http://www.w3.org/2000/svg"  width="35" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+               <path d="M21 14l-9 7l-9 -7l3 -11l3 7h6l3 -7z" />
+            </svg>
+            <span>UniLink</span>
+         </a>
+         <input id="nav" type="checkbox">
+         <label for="nav"></label>
+         <nav>
+            <ul>
+               {% if page_name == 'collection' %}
+               {% block visib %}{% endblock visib %}
+               <li>
+                  <span>
+                     <svg id="tip-lock" onclick="setup_pp()" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <rect x="5" y="11" width="14" height="10" rx="2" />
+                        <circle cx="12" cy="16" r="1" />
+                        <path d="M8 11v-4a4 4 0 0 1 8 0v4" />
+                     </svg>
+                  </span>
+               </li>
+               <li>
+                  <span>
+                     <svg id="tip-copyn" onclick="copylink()" xmlns="http://www.w3.org/2000/svg"  width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+                        <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+                     </svg>
+                  </span>
+               </li>
+               <li>
+                  <span>
+                     <svg id="tip-desc" description="{{ description }}" onclick="setup_popup_dsc(this)" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                        <rect x="4" y="4" width="16" height="16" rx="2" />
+                        <polyline points="11 12 12 12 12 16 13 16" />
+                     </svg>
+                  </span>
+               </li>
+               <li>
+                  <span>
+                     <svg id="tip-add" onclick="window.location.href='/'" xmlns="http://www.w3.org/2000/svg"  width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <circle cx="12" cy="12" r="9" />
+                        <line x1="9" y1="12" x2="15" y2="12" />
+                        <line x1="12" y1="9" x2="12" y2="15" />
+                     </svg>
+                  </span>
+               </li>
+               {% endif %}
+               <li>
+                  <span>
+                  <svg id="tip-share" onclick="share()" xmlns="http://www.w3.org/2000/svg"  width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                     <circle cx="6" cy="12" r="3" />
+                     <circle cx="18" cy="6" r="3" />
+                     <circle cx="18" cy="18" r="3" />
+                     <line x1="8.7" y1="10.7" x2="15.3" y2="7.3" />
+                     <line x1="8.7" y1="13.3" x2="15.3" y2="16.7" />
+                  </svg>
+                  </a>
+               </li>
+            </ul>
+         </nav>
+      </header>
+      {% block content %}{% endblock content %}
+      <div class="footer">
+         <div class="footer-con">
+            <div class="s-links">
+               <span style="color: #fff;">© 2021 UNILink</span>
+               <a href="{% url 'unilink_app:aboutus' %}">About us</a>
+               <a href="{% url 'unilink_app:howtouse' %}">How it works?</a>
+            </div>
+            <div class="social">
+               <svg onclick="window.location.href= 'https://github.com/abhiprojectz/unilink'" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+               </svg>
+            </div>
+         </div>
+      </div>
+      <script>
+         window.onload = () => {
+            var url = new URL(location.href)
+            if (url.searchParams.get("sort") == "oldest") {
+               document.querySelector("#sort").value = "oldest";
+            }
+         }
+         
+         var arr = ["#D65DB1",
+               "#FF6F91",
+               "#FF9671",
+               "#FFC75F",
+               "#F9F871",
+               "#0089BA",
+               "#FBEAFF",
+               "#C4FCEF",
+               "#FF8066",
+               "#FEFEDF",
+               "#D0E9F4",
+               "#008CCC",
+               "#4FFBDF",
+               "#C493FF",
+               "#FACCFF",
+               ];
+         
+         var all_el = document.querySelectorAll(".boxc");
+         
+         all_el.forEach((el) => {
+           el.style.backgroundColor = arr[Math.floor(Math.random() * arr.length)];
+         })
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
+      <!-- === Tooltip . Tippy scripts === -->
+      <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+      <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+      <script src="{% static 'js/script.min.js' %}"></script>
+      <script>
+         var ll = new LazyLoad({
+         });
+      </script>
+   </body>
+</html>

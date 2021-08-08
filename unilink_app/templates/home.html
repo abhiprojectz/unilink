@@ -1,0 +1,82 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="app-container">
+   <div class="slitin app-wrapper">
+      <h1>Forgot Managing your links anymore!</h1>
+      <p>UNILink - makes Links manageable.</p>
+      <div class="links-container rollin">
+         <form action="" method="POST">
+            <div class="inp-wrap">
+               {% csrf_token %}
+               {{form.collection_url}}
+               <button class="sub">
+                  <svg style="margin-left: 10px;" xmlns="http://www.w3.org/2000/svg" class="sicon" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#651FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                     <rect x="4" y="4" width="16" height="16" rx="2" />
+                     <line x1="9" y1="12" x2="15" y2="12" />
+                     <line x1="12" y1="9" x2="12" y2="15" />
+                  </svg>
+               </button>
+            </div>
+         </form>
+         {% if errors %}
+         <div class="alert alert-danger mt-4" role="alert">
+            <p>{{errors}}</p>
+         </div>
+         {% endif %}
+      </div>
+      <p class="grey-t">You need one link to create a manageble link.</p>
+   </div>
+</div>
+<div class="links-gallery-container">
+   <div class="links-g">
+      <div class="l-head">
+         <h2>Popular Unilections</h2>
+         <div class="tags-list-main">
+            <div>
+               <span class="tag">#all</span>
+            </div>
+            <section class="dropsel">
+               <span class="iosr">Sort By: </span>
+               <select id="sort" class="selectbor" onchange="update_sort(this.value)">
+                  <option value="newest">Newest</option>
+                  <option value="oldest">Oldest</option>
+               </select>
+            </section>
+         </div>
+      </div>
+      <div class="grid-container">
+         <div class="grid">
+            {% for i in links %}
+            <div class="boxc" onclick="window.location.href='c/{{ i.short_url }}'">
+               <div class="page-wrapper">
+                 <div class="wrapper-title">
+                   <span class="fr-title">{{ i.collection_name }}</span>
+                </div>
+                 <div class="wrapper-counts">
+                   <div class="icon-text">
+                      <div class="iconz">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#333" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <polyline points="12 7 12 12 15 15"></polyline>
+                         </svg>
+                      </div>
+                      <span class="text front">{{ i.created }}</span>
+                   </div>
+                </div>
+               </div>
+             </div>
+            {% endfor %}
+         </div>
+      </div>
+      <button class="explore">
+         Explore 
+         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#651FFF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <polyline points="9 6 15 12 9 18" />
+         </svg>
+      </button>
+   </div>
+</div>
+{% endblock content %}
