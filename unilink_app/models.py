@@ -14,7 +14,7 @@ class UniCollection(models.Model):
     collection_name = models.CharField(max_length=300, blank=True, null = True)
     description = models.CharField(max_length = 500, null= True, blank = True)
     short_url = models.CharField(max_length=15, unique=True)
-    password = models.CharField(max_length=50, null=True, blank=True)
+    password = models.CharField(max_length=500, null=True, blank=True)
     public = models.CharField(max_length=15, default=0)
 
     class Meta:
