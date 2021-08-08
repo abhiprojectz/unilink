@@ -12,9 +12,9 @@ class UniCollection(models.Model):
     ''' 
     created = models.DateTimeField(auto_now_add=True)
     collection_name = models.CharField(max_length=300, blank=True, null = True)
-    description = models.CharField(max_length = 500, null= True, blank = True)
+    description = models.CharField(max_length = 600, null= True, blank = True)
     short_url = models.CharField(max_length=15, unique=True)
-    password = models.CharField(max_length=500, null=True, blank=True)
+    password = models.CharField(max_length=600, null=True, blank=True)
     public = models.CharField(max_length=15, default=0)
 
     class Meta:
@@ -39,11 +39,11 @@ class Link(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     collection = models.ForeignKey(UniCollection, on_delete=models.CASCADE, null = True)
-    title = models.CharField(max_length = 300, null = True, blank=True)
+    title = models.CharField(max_length = 500, null = True, blank=True)
     image_url = models.URLField(blank=True, null =True)
     favicon_url = models.URLField(null = True, blank = True)
-    description = models.CharField(max_length = 300, null = True, blank=True)
-    host_name = models.CharField(max_length = 300, null = True, )
+    description = models.CharField(max_length = 1000, null = True, blank=True)
+    host_name = models.CharField(max_length = 500, null = True, )
     url = models.URLField()
     
     class Meta:
